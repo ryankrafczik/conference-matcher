@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conference Prospect Matcher</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; color: #1a1a1a; }
+    .container { max-width: 700px; margin: 0 auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    h1 { font-size: 24px; margin-bottom: 8px; font-weight: 500; }
+    h2 { font-size: 18px; margin: 20px 0; font-weight: 500; }
+    .subtitle { color: #666; font-size: 13px; margin-bottom: 20px; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 13px; color: #666; margin-bottom: 6px; font-weight: 500; }
+    input, select, textarea { width: 100%; padding: 10px 12px; border: 0.5px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 14px; background: white; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #378ADD; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    button { padding: 10px 16px; background: #378ADD; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }
+    button:hover { background: #2563c0; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .back-link { background: none; border: none; padding: 0; color: #666; font-size: 13px; text-decoration: underline; cursor: pointer; margin-bottom: 20px; }
+    .error { background: #fce7e6; border: 0.5px solid #f69f8d; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #a32d2d; margin-bottom: 16px; }
+    .loading { text-align: center; padding: 40px 20px; }
+    .spinner { display: inline-block; width: 24px; height: 24px; border: 2px solid #ddd; border-top: 2px solid #378ADD; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 24px 0; }
+    .stat-card { background: #f5f5f5; border-radius: 8px; padding: 16px; }
+    .stat-label { font-size: 12px; color: #666; margin-bottom: 6px; }
+    .stat-value { font-size: 20px; font-weight: 500; }
+    .prospects-list { display: grid; gap: 12px; }
+    .prospect-card { background: white; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; }
+    .prospect-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .prospect-name { font-weight: 500; font-size: 15px; }
+    .prospect-company { font-size: 13px; color: #666; }
+    .prospect-badges { display: flex; gap: 8px; }
+    .badge { padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; background: #e6f1fb; color: #185fa5; }
+  </style>
+</head>
+<body>
+  <div class="container" id="app"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.4.1/papaparse.min.js"></script>
+  <script>
+    const API_KEY = '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';
+    const app = document.getElementById('app');
+    let state = { step: 'input', fundProfile: { fundName: '', fundType: 'Real Estate Sponsor', checkSizeMin: '500k', checkSizeMax: '5m', sectorFocus: 'Build-to-Rent Communities', geographyFocus: 'Sunbelt, Mountain West', deploymentTimeline: '12-24 months', additionalCriteria: '' }, uploadedData: null, results: null, loading: false, error: null };
+
+    function render() {
+      if (state.step === 'input') {
+        app.innerHTML = `
+          <h1>Conference Prospect Matcher</h1>
+          <p class="subtitle">Identify your best potential LPs at any conference</p>
+          <h2>Step 1: Define your fund</h2>
+          
+          <div class="form-group">
+            <label>Fund name</label>
+            <input type="text" id="fundName" placeholder="e.g., Avilla Trinity Raise" value="${state.fundProfile.fundName}" />
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Fund type</label>
+              <select id="fundType">
+                <option>Real Estate Sponsor</option>
+                <option>Private Equity</option>
+                <option>Growth Equity</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Sector focus</label>
+              <input type="text" id="sectorFocus" placeholder="e.g., Build-to-Rent" value="${state.fundProfile.sectorFocus}" />
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Check size min</label>
+              <input type="text" id="checkSizeMin" placeholder="e.g., 500k" value="${state.fundProfile.checkSizeMin}" />
+            </div>
+            <div class="form-group">
+              <label>Check size max</label>
+              <input type="text" id="checkSizeMax" placeholder="e.g., 10m" value="${state.fundProfile.checkSizeMax}" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Geography focus</label>
+            <input type="text" id="geographyFocus" placeholder="e.g., Sunbelt, Mountain West" value="${state.fundProfile.geographyFocus}" />
+          </div>
+
+          <div class="form-group">
+            <label>Deployment timeline</label>
+            <input type="text" id="deploymentTimeline" placeholder="e.g., 12-24 months" value="${state.fundProfile.deploymentTimeline}" />
+          </div>
+
+          <button onclick="nextStep()">Continue to upload →</button>
+        `;
+
+        document.getElementById('fundType').value = state.fundProfile.fundType;
+        document.getElementById('fundName').addEventListener('change', e => state.fundProfile.fundName = e.target.value);
+        document.getElementById('fundType').addEventListener('change', e => state.fundProfile.fundType = e.target.value);
+        document.getElementById('checkSizeMin').addEventListener('change', e => state.fundProfile.checkSizeMin = e.target.value);
+        document.getElementById('checkSizeMax').addEventListener('change', e => state.fundProfile.checkSizeMax = e.target.value);
+        document.getElementById('sectorFocus').addEventListener('change', e => state.fundProfile.sectorFocus = e.target.value);
+        document.getElementById('geographyFocus').addEventListener('change', e => state.fundProfile.geographyFocus = e.target.value);
+        document.getElementById('deploymentTimeline').addEventListener('change', e => state.fundProfile.deploymentTimeline = e.target.value);
+      } else if (state.step === 'upload') {
+        app.innerHTML = `
+          <button class="back-link" onclick="state.step='input'; render()">← Back</button>
+          <h2>Step 2: Upload attendee list</h2>
+          <p class="subtitle">CSV or Excel with: First name, Last name, Company, Job title, Investor Type, City, State</p>
+          
+          <div style="border: 2px dashed #ddd; border-radius: 8px; padding: 40px 20px; text-align: center; cursor: pointer; margin-bottom: 16px;">
+            <label style="cursor: pointer; display: block;">
+              <div style="font-size: 32px; margin-bottom: 12px;">📁</div>
+              <div style="font-weight: 500; margin-bottom: 4px;">Click to upload or drag and drop</div>
+              <div style="font-size: 13px; color: #666;">CSV or XLSX file</div>
+              <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display: none;" />
+            </label>
+          </div>
+
+          ${state.uploadedData ? `<div style="background: #f0f7ff; border: 0.5px solid #b3d9ff; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;">✓ ${state.uploadedData.fileName} (${state.uploadedData.rowCount - 1} contacts)</div>` : ''}
+          ${state.error ? `<div class="error">${state.error}</div>` : ''}
+          
+          <button onclick="processProspects()" ${!state.uploadedData ? 'disabled' : ''}>Process prospects →</button>
+        `;
+
+        document.getElementById('fileInput').addEventListener('change', e => {
+          const file = e.target.files[0];
+          if (file) Papa.parse(file, { complete: r => { state.uploadedData = { fileName: file.name, data: r.data, rowCount: r.data.length }; render(); }, header: true, skipEmptyLines: true });
+        });
+      } else if (state.step === 'results') {
+        const tier1 = state.results.matched.filter(p => p.tier === 'TIER 1').length;
+        app.innerHTML = `
+          <button class="back-link" onclick="state.step='upload'; render()">← Back</button>
+          <h2>Results for ${state.results.fundName}</h2>
+          
+          <div class="stats">
+            <div class="stat-card"><div class="stat-label">Total contacts</div><div class="stat-value">${state.results.prospectCount}</div></div>
+            <div class="stat-card"><div class="stat-label">Tier 1 matches</div><div class="stat-value">${tier1}</div></div>
+            <div class="stat-card"><div class="stat-label">Top score</div><div class="stat-value">${state.results.matched[0]?.score || 0}</div></div>
+          </div>
+
+          <div class="prospects-list">
+            ${state.results.matched.map((p, i) => `
+              <div class="prospect-card">
+                <div class="prospect-header">
+                  <div><div class="prospect-name">${p.name}</div><div class="prospect-company">${p.company}</div></div>
+                  <div class="prospect-badges"><div class="badge">${p.score}</div><div class="badge">${p.tier}</div></div>
+                </div>
+                <div style="font-size: 13px; color: #666; margin-bottom: 8px;">${p.reasoning}</div>
+                <div style="font-size: 12px; font-weight: 500; margin-bottom: 4px;">Talking points:</div>
+                ${p.talking_points.map(pt => `<div style="font-size: 12px; color: #666; margin-left: 20px;">• ${pt}</div>`).join('')}
+              </div>
+            `).join('')}
+          </div>
+
+          <button onclick="downloadResults()" style="margin-top: 24px;">⬇ Download CSV</button>
+        `;
+      } else if (state.loading) {
+        app.innerHTML = '<div class="loading"><div style="margin-bottom: 16px; color: #666; font-size: 14px;">Analyzing prospects...</div><div class="spinner"></div></div>';
+      }
+    }
+
+    function nextStep() { state.step = 'upload'; render(); }
+
+    async function processProspects() {
+      if (!state.uploadedData || !state.fundProfile.fundName) { state.error = 'Please fill in fund name'; render(); return; }
+      state.loading = true;
+      render();
+
+      try {
+        const prospects = state.uploadedData.data.slice(0, 50).filter(r => r['First name'] || r['first_name']).map((r, i) => ({
+          name: `${r['First name'] || r['first_name'] || ''} ${r['Last name'] || r['last_name'] || ''}`.trim(),
+          company: r['Company'] || r['company'] || '',
+          title: r['Job title'] || r['title'] || '',
+          investorType: r['Investor Type'] || r['investor_type'] || '',
+          city: r['City'] || r['city'] || '',
+          state: r['State'] || r['state'] || ''
+        }));
+
+        const prompt = `Score these ${prospects.length} prospects for fit with: ${state.fundProfile.fundName} (${state.fundProfile.fundType}, ${state.fundProfile.checkSizeMin}-${state.fundProfile.checkSizeMax}, ${state.fundProfile.sectorFocus}, ${state.fundProfile.geographyFocus}).
+
+${prospects.map((p, i) => `${i+1}. ${p.name} | ${p.company} | ${p.title} | ${p.investorType} | ${p.city}, ${p.state}`).join('\n')}
+
+Return ONLY valid JSON array (no markdown):
+[{"name":"Name","company":"Co","score":85,"tier":"TIER 1","reasoning":"Why","talking_points":["A","B"],"follow_up_focus":"What"}]`;
+
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY },
+          body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 4000, messages: [{ role: 'user', content: prompt }] })
+        });
+
+        if (!res.ok) throw new Error(`API error: ${res.statusText}`);
+        const data = await res.json();
+        const parsed = JSON.parse(data.content[0].text.trim());
+        const sorted = parsed.sort((a, b) => b.score - a.score);
+        
+        state.results = { fundName: state.fundProfile.fundName, prospectCount: prospects.length, matched: sorted };
+        state.step = 'results';
+        state.loading = false;
+        render();
+      } catch (err) {
+        state.error = `Error: ${err.message}`;
+        state.loading = false;
+        render();
+      }
+    }
+
+    function downloadResults() {
+      let csv = 'Score,Tier,Name,Company\n';
+      state.results.matched.forEach(p => csv += `${p.score},"${p.tier}","${p.name}","${p.company}"\n`);
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${state.results.fundName.replace(/\s+/g, '_')}_prospects.csv`;
+      a.click();
+    }
+
+    render();
+  </script>
+</body>
+</html>
