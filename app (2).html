@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    body {background-color: #f2f2f2}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #141414; -webkit-text-stroke: #141414; background-color: #ffffff}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #141414; -webkit-text-stroke: #141414; background-color: #ffffff; min-height: 15.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;Conference Prospect Matcher&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>* { margin: 0; padding: 0; box-sizing: border-box; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; color: #1a1a1a; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.container { max-width: 700px; margin: 0 auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>h1 { font-size: 24px; margin-bottom: 8px; font-weight: 500; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>h2 { font-size: 18px; margin: 20px 0; font-weight: 500; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.subtitle { color: #666; font-size: 13px; margin-bottom: 20px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.form-group { margin-bottom: 16px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>label { display: block; font-size: 13px; color: #666; margin-bottom: 6px; font-weight: 500; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>input, select, textarea { width: 100%; padding: 10px 12px; border: 0.5px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 14px; background: white; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>input:focus, select:focus, textarea:focus { outline: none; border-color: #378ADD; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button { padding: 10px 16px; background: #378ADD; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button:hover { background: #2563c0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button:disabled { opacity: 0.5; cursor: not-allowed; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.back-link { background: none; border: none; padding: 0; color: #666; font-size: 13px; text-decoration: underline; cursor: pointer; margin-bottom: 20px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.error { background: #fce7e6; border: 0.5px solid #f69f8d; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #a32d2d; margin-bottom: 16px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.loading { text-align: center; padding: 40px 20px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.spinner { display: inline-block; width: 24px; height: 24px; border: 2px solid #ddd; border-top: 2px solid #378ADD; border-radius: 50%; animation: spin 0.8s linear infinite; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>@keyframes spin { to { transform: rotate(360deg); } }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 24px 0; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-card { background: #f5f5f5; border-radius: 8px; padding: 16px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-label { font-size: 12px; color: #666; margin-bottom: 6px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-value { font-size: 20px; font-weight: 500; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.prospects-list { display: grid; gap: 12px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.prospect-card { background: white; border: 0.5px solid #ddd; border-radius: 12px; padding: 16px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.prospect-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.prospect-name { font-weight: 500; font-size: 15px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.prospect-company { font-size: 13px; color: #666; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.prospect-badges { display: flex; gap: 8px; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.badge { padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 500; background: #e6f1fb; color: #185fa5; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="container" id="app"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/papaparse/5.4.1/papaparse.min.js"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const app = document.getElementById('app');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let state = { step: 'input', fundProfile: { fundName: '', fundType: 'Real Estate Sponsor', checkSizeMin: '500k', checkSizeMax: '5m', sectorFocus: 'Build-to-Rent Communities', geographyFocus: 'Sunbelt, Mountain West', deploymentTimeline: '12-24 months', additionalCriteria: '' }, uploadedData: null, results: null, loading: false, error: null };</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function render() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (state.step === 'input') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>app.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h1&gt;Conference Prospect Matcher&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;p class="subtitle"&gt;Identify your best potential LPs at any conference&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h2&gt;Step 1: Define your fund&lt;/h2&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label&gt;Fund name&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="fundName" placeholder="e.g., Avilla Trinity Raise" value="${state.fundProfile.fundName}" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="grid-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;label&gt;Fund type&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;select id="fundType"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option&gt;Real Estate Sponsor&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option&gt;Private Equity&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;option&gt;Growth Equity&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;label&gt;Sector focus&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;input type="text" id="sectorFocus" placeholder="e.g., Build-to-Rent" value="${state.fundProfile.sectorFocus}" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="grid-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;label&gt;Check size min&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;input type="text" id="checkSizeMin" placeholder="e.g., 500k" value="${state.fundProfile.checkSizeMin}" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;label&gt;Check size max&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;input type="text" id="checkSizeMax" placeholder="e.g., 10m" value="${state.fundProfile.checkSizeMax}" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label&gt;Geography focus&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="geographyFocus" placeholder="e.g., Sunbelt, Mountain West" value="${state.fundProfile.geographyFocus}" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="form-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label&gt;Deployment timeline&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="deploymentTimeline" placeholder="e.g., 12-24 months" value="${state.fundProfile.deploymentTimeline}" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button onclick="nextStep()"&gt;Continue to upload →&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('fundType').value = state.fundProfile.fundType;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('fundName').addEventListener('change', e =&gt; state.fundProfile.fundName = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('fundType').addEventListener('change', e =&gt; state.fundProfile.fundType = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('checkSizeMin').addEventListener('change', e =&gt; state.fundProfile.checkSizeMin = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('checkSizeMax').addEventListener('change', e =&gt; state.fundProfile.checkSizeMax = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('sectorFocus').addEventListener('change', e =&gt; state.fundProfile.sectorFocus = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('geographyFocus').addEventListener('change', e =&gt; state.fundProfile.geographyFocus = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('deploymentTimeline').addEventListener('change', e =&gt; state.fundProfile.deploymentTimeline = e.target.value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} else if (state.step === 'upload') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>app.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="back-link" onclick="state.step='input'; render()"&gt;← Back&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h2&gt;Step 2: Upload attendee list&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;p class="subtitle"&gt;CSV or Excel with: First name, Last name, Company, Job title, Investor Type, City, State&lt;/p&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div style="border: 2px dashed #ddd; border-radius: 8px; padding: 40px 20px; text-align: center; cursor: pointer; margin-bottom: 16px;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label style="cursor: pointer; display: block;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="font-size: 32px; margin-bottom: 12px;"&gt;📁&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="font-weight: 500; margin-bottom: 4px;"&gt;Click to upload or drag and drop&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="font-size: 13px; color: #666;"&gt;CSV or XLSX file&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display: none;" /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${state.uploadedData ? `&lt;div style="background: #f0f7ff; border: 0.5px solid #b3d9ff; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;"&gt;✓ ${state.uploadedData.fileName} (${state.uploadedData.rowCount - 1} contacts)&lt;/div&gt;` : ''}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${state.error ? `&lt;div class="error"&gt;${state.error}&lt;/div&gt;` : ''}</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button onclick="processProspects()" ${!state.uploadedData ? 'disabled' : ''}&gt;Process prospects →&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('fileInput').addEventListener('change', e =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>const file = e.target.files[0];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>if (file) Papa.parse(file, { complete: r =&gt; { state.uploadedData = { fileName: file.name, data: r.data, rowCount: r.data.length }; render(); }, header: true, skipEmptyLines: true });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} else if (state.step === 'results') {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const tier1 = state.results.matched.filter(p =&gt; p.tier === 'TIER 1').length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>app.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="back-link" onclick="state.step='upload'; render()"&gt;← Back&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h2&gt;Results for ${state.results.fundName}&lt;/h2&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">          </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="stats"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;&lt;div class="stat-label"&gt;Total contacts&lt;/div&gt;&lt;div class="stat-value"&gt;${state.results.prospectCount}&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;&lt;div class="stat-label"&gt;Tier 1 matches&lt;/div&gt;&lt;div class="stat-value"&gt;${tier1}&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;&lt;div class="stat-label"&gt;Top score&lt;/div&gt;&lt;div class="stat-value"&gt;${state.results.matched[0]?.score || 0}&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="prospects-list"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>${state.results.matched.map((p, i) =&gt; `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div class="prospect-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="prospect-header"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                  </span>&lt;div&gt;&lt;div class="prospect-name"&gt;${p.name}&lt;/div&gt;&lt;div class="prospect-company"&gt;${p.company}&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                  </span>&lt;div class="prospect-badges"&gt;&lt;div class="badge"&gt;${p.score}&lt;/div&gt;&lt;div class="badge"&gt;${p.tier}&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div style="font-size: 13px; color: #666; margin-bottom: 8px;"&gt;${p.reasoning}&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div style="font-size: 12px; font-weight: 500; margin-bottom: 4px;"&gt;Talking points:&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>${p.talking_points.map(pt =&gt; `&lt;div style="font-size: 12px; color: #666; margin-left: 20px;"&gt;• ${pt}&lt;/div&gt;`).join('')}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>`).join('')}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button onclick="downloadResults()" style="margin-top: 24px;"&gt;⬇ Download CSV&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} else if (state.loading) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>app.innerHTML = '&lt;div class="loading"&gt;&lt;div style="margin-bottom: 16px; color: #666; font-size: 14px;"&gt;Analyzing prospects...&lt;/div&gt;&lt;div class="spinner"&gt;&lt;/div&gt;&lt;/div&gt;';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function nextStep() { state.step = 'upload'; render(); }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>async function processProspects() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!state.uploadedData || !state.fundProfile.fundName) { state.error = 'Please fill in fund name'; render(); return; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>state.loading = true;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>render();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>try {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const prospects = state.uploadedData.data.slice(0, 50).filter(r =&gt; r['First name'] || r['first_name']).map((r, i) =&gt; ({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>name: `${r['First name'] || r['first_name'] || ''} ${r['Last name'] || r['last_name'] || ''}`.trim(),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>company: r['Company'] || r['company'] || '',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>title: r['Job title'] || r['title'] || '',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>investorType: r['Investor Type'] || r['investor_type'] || '',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>city: r['City'] || r['city'] || '',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>state: r['State'] || r['state'] || ''</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}));</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const prompt = `Score these ${prospects.length} prospects for fit with: ${state.fundProfile.fundName} (${state.fundProfile.fundType}, ${state.fundProfile.checkSizeMin}-${state.fundProfile.checkSizeMax}, ${state.fundProfile.sectorFocus}, ${state.fundProfile.geographyFocus}).</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">${prospects.map((p, i) =&gt; `${i+1}. ${p.name} | ${p.company} | ${p.title} | ${p.investorType} | ${p.city}, ${p.state}`).join('\n')}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">Return ONLY valid JSON array (no markdown):</span></p>
+<p class="p1"><span class="s1">[{"name":"Name","company":"Co","score":85,"tier":"TIER 1","reasoning":"Why","talking_points":["A","B"],"follow_up_focus":"What"}]`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const res = await fetch('https://api.anthropic.com/v1/messages', {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>method: 'POST', headers: headers: { 'Content-Type': 'application/json', 'x-api-key': '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' },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (!res.ok) throw new Error(`API error: ${res.statusText}`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const data = await res.json();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const parsed = JSON.parse(data.content[0].text.trim());</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const sorted = parsed.sort((a, b) =&gt; b.score - a.score);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>state.results = { fundName: state.fundProfile.fundName, prospectCount: prospects.length, matched: sorted };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>state.step = 'results';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>state.loading = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>render();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>} catch (err) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>state.error = `Error: ${err.message}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>state.loading = false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>render();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function downloadResults() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>let csv = 'Score,Tier,Name,Company\n';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>state.results.matched.forEach(p =&gt; csv += `${p.score},"${p.tier}","${p.name}","${p.company}"\n`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const blob = new Blob([csv], { type: 'text/csv' });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const url = URL.createObjectURL(blob);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const a = document.createElement('a');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>a.href = url;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>a.download = `${state.results.fundName.replace(/\s+/g, '_')}_prospects.csv`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>a.click();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>render();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
